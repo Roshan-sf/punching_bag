@@ -16,8 +16,48 @@
 <body>
 	<h1 class="rainbow">Score Board</h1>
 
-	<php echo date('Y-m-d H:i:s');></php>
+	<canvas id="myCanvas" width="400" height="625" style="border:1px solid #000000;"></canvas>
+		<script>
+			var score = 10
+			var canvas = document.getElementById("myCanvas");
+			var ctx = canvas.getContext("2d");
+			ctx.fillRect(200,0,1,625);
+			ctx.fillRect(0,75,400,1);
+			ctx.fillRect(0,125,400,1);
+			ctx.fillRect(0,175,400,1);
+			ctx.fillRect(0,225,400,1);
+			ctx.fillRect(0,275,400,1);
+			ctx.fillRect(0,325,400,1);
+			ctx.fillRect(0,375,400,1);
+			ctx.fillRect(0,425,400,1);
+			ctx.fillRect(0,475,400,1);
+			ctx.fillRect(0,525,400,1);
+			ctx.fillRect(0,575,400,1);
+			
+			var canvas = document.getElementById("myCanvas");
+			var ctx = canvas.getContext("2d");
+			ctx.font = "50px Arial";
+			ctx.fillStyle = "black";
+			//ctx.strokeText("Name", 10, 50); <--- alternative for writing
+			ctx.fillText("Name", 30, 55);
+			ctx.fillText("Score", 235, 55);
+			ctx.fillText(score1, 235, 120);
+			ctx.fillText(score2, 235, 170);
+			ctx.fillText(score3, 235, 220);
+			ctx.fillText(score4, 235, 270);
+			ctx.fillText(score5, 235, 320);
+			ctx.fillText(score6, 235, 370);
+			ctx.fillText(score7, 235, 420); 
+			ctx.fillText(score8, 235, 470);
+			ctx.fillText(score9, 235, 520);
+			ctx.fillText(score10, 235, 570);
+			ctx.fillText(score11, 235, 620);
+			
 
+
+
+
+		</script>
 
 
 </body>
