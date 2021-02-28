@@ -1,5 +1,6 @@
 from gpiozero import LED, Button
 import RPi.GPIO as GPIO
+from playsound import playsound
 import time
 import random
 buttonPressed = 0
@@ -72,25 +73,21 @@ def getRandoms(length):
 def signify(theList):
     for x in theList:
         if x == 1:
-            led1.on() #audio replacement here roshan
+            playsound('Head.mp3') #audio replacement here roshan
             time.sleep(.5)
-            led1.off()
         elif x == 2:
-            led2.on() #audio replacement here roshan
+            playsound('Top_Right.mp3') #audio replacement here roshan
             time.sleep(.5)
-            led2.off()
         elif x == 3:
-            led3.on() #audio replacement here roshan
+            playsound('Top_Left.mp3') #audio replacement here roshan
             time.sleep(.5)
-            led3.off()
         elif x == 4:
-            led4.on() #audio replacement here roshan
+            playsound('Bottom_Right.mp3') #audio replacement here roshan
             time.sleep(.5)
-            led4.off()
         elif x == 5:
-            led5.on() #audio replacement here roshan
+            playsound('Bottom_Left.mp3') #audio replacement here roshan
             time.sleep(.5)
-            led5.off()
+
 
 game = True
 num = 2
