@@ -1,60 +1,106 @@
 from gpiozero import LED, Button
+import RPi.GPIO as GPIO
 import time
 import random
+buttonPressed = 0
+led1 = LED(21)
+led2 = LED(20)
+led3 = LED(16)
+led4 = LED(12)
+led5 = LED(1)
 
-button0 = Button(14)
-button1 = Button(15)
-LED0 = LED(12)
-LED1 = LED(16)
-red = LED(21)
-green = LED(20)
-answer = [2,2]
-guess = [2,2]
-ongoing = True
-def fillslot():
-    value = 2
-    while value == 2:
-        print(value)
-        if button0.is_pressed:
-            LED0.on()
-            value = 0
-            button0.wait_for_release()
-            LED0.off()
-        elif button1.is_pressed:
-            LED1.on()
-            value = 1
-            button1.wait_for_release()
-            LED1.off()
-    return value
+def b1(channel):
+    global buttonPressed
+    buttonPressed=1
+    print("1 pressed")
+def b2(channel):
+    global buttonPressed
+    buttonPressed=2
+    print("2 pressed")
+def b3(channel):
+    global buttonPressed
+    buttonPressed=3
+    print("3 pressed")
+def b4(channel):
+    global buttonPressed
+    buttonPressed=4
+    print("4 pressed")
+def b5(channel):
+    global buttonPressed
+    buttonPressed=5
+    print("5 pressed")
     
-while ongoing == True:
-    green.on()
-    time.sleep(2)
-    green.off()
-    print("green off")
-    for y in range(len(answer)):
-        x = answer[y]
-        x = random.randint(0,1)
-        answer[y] = x
-        if x == 0:
-            LED0.on()
-            time.sleep(1)
-            LED0.off()
-        elif x == 1:
-            LED1.on()
-            time.sleep(1)
-            LED1.off()
-    print(answer)
-    for x in guess:
-        x = fillslot()
-    if answer != guess:
-        ongoing == False
-    
-    
-red.on()
-sleep(2)
-#ending code
-LED0.off()
-LED1.off()
-red.off()
-green.off()
+GPIO.setup(24, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) #set up for buttons
+GPIO.setup(23, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(15, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(14, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+
+GPIO.add_event_detect(24,GPIO.RISING,callback=b1) # Setup event for button 1
+GPIO.add_event_detect(23,GPIO.RISING,callback=b2) # Setup event for button 2
+GPIO.add_event_detect(18,GPIO.RISING,callback=b3) # Setup event for button 3
+GPIO.add_event_detect(15,GPIO.RISING,callback=b4) #etc
+GPIO.add_event_detect(14,GPIO.RISING,callback=b5)
+
+def getButtonPressed():
+    global buttonPressed
+    print("getting button")
+    if buttonPressed == 0:
+        while buttonPressed == 0:
+            time.sleep(.01)
+    time.sleep(.2)
+    return buttonPressed
+
+def getAnswer(length):
+    global buttonPressed
+    print("getting answer")
+    answer = []
+    for x in range(length):
+        y = getButtonPressed()
+        buttonPressed = 0
+        answer.append(y)
+    return answer
+
+def getRandoms(length):
+    randoms = []
+    for x in range(length):
+        y = random.randint(1,5)
+        randoms.append(y)
+    print(randoms)
+    return randoms
+
+def signify(theList):
+    for x in theList:
+        if x == 1:
+            led1.on() #audio replacement here roshan
+            time.sleep(.5)
+            led1.off()
+        elif x == 2:
+            led2.on() #audio replacement here roshan
+            time.sleep(.5)
+            led2.off()
+        elif x == 3:
+            led3.on() #audio replacement here roshan
+            time.sleep(.5)
+            led3.off()
+        elif x == 4:
+            led4.on() #audio replacement here roshan
+            time.sleep(.5)
+            led4.off()
+        elif x == 5:
+            led5.on() #audio replacement here roshan
+            time.sleep(.5)
+            led5.off()
+
+game = True
+num = 2
+while game == True:
+    correct = getRandoms(num)
+    print(correct)
+    signify(correct)
+    response = getAnswer(num)
+    print(response)
+    if correct != response:
+        game = False
+        print("game over")
+    num += 1
