@@ -1,7 +1,7 @@
 from gpiozero import LED, Button
 import RPi.GPIO as GPIO
-from pydub import AudioSegment
-from pydub.playback import play
+import pygame
+import wave
 import time
 import random
 buttonPressed = 0
@@ -13,17 +13,21 @@ led5 = LED(1)
 sound = ''
 
 def getFile(number):
-    global sound
-    if number == 1:
-        sound = "Head.wav"
-    elif number == 2:
-        sound = "Top_Right.wav"
-    elif number == 3:
-        sound = "Top_Left.wav"
-    elif number == 4:
-        sound = "Bottom_Right.wav"
-    elif number == 5:
-        sound = "Bottom_Left.wav"
+    if number ==1:
+        filename = "Head.wav"
+    elif number ==2:
+        filename = "Top_Right.wav"
+    elif number ==3:
+        filename = "Top_Left.wav"
+    elif number ==4:
+        filename = "Bottom_Right.wav"
+    elif number ==5:
+        filename = "Buttom_Left.wav"
+    pygame.mixer.init()
+    pygame.mixer.music.load(filename)
+    pygame.mixer.music.play()
+    while pygame.mixer.music.get_busy() == True:
+        continue
 
 def b1(channel):
     global buttonPressed
@@ -64,7 +68,7 @@ def getButtonPressed():
     if buttonPressed == 0:
         while buttonPressed == 0:
             time.sleep(.01)
-    time.sleep(.2)
+    time.sleep(.3)
     return buttonPressed
 
 def getAnswer(length):
@@ -90,23 +94,18 @@ def signify(theList):
     for x in theList:
         if x == 1:
             getFile(1)
-            play(sound)
             time.sleep(.5)
         elif x == 2:
             getFile(2)
-            play(sound)
             time.sleep(.5)
         elif x == 3:
             getFile(3)
-            play(sound)
             time.sleep(.5)
         elif x == 4:
             getFile(4)
-            play(sound)
             time.sleep(.5)
         elif x == 5:
             getFile(4)
-            play(sound)
             time.sleep(.5)
 
 
