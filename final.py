@@ -22,7 +22,9 @@ def getFile(number):
     elif number ==4:
         filename = "Bottom_Right.wav"
     elif number ==5:
-        filename = "Buttom_Left.wav"
+        filename = "Bottom_Left.wav"
+    elif number ==6:
+        filename = "buzz.wav"
     pygame.mixer.init()
     pygame.mixer.music.load(filename)
     pygame.mixer.music.play()
@@ -105,7 +107,7 @@ def signify(theList):
             getFile(4)
             time.sleep(.5)
         elif x == 5:
-            getFile(4)
+            getFile(5)
             time.sleep(.5)
 
 
@@ -120,4 +122,5 @@ while game == True:
     if correct != response:
         game = False
         print("game over")
+        getFile(6)
     num += 1
