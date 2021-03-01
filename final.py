@@ -1,6 +1,7 @@
 from gpiozero import LED, Button
 import RPi.GPIO as GPIO
-import playsound
+from pydub import AudioSegment
+from pydub.playback import play
 import time
 import random
 buttonPressed = 0
@@ -9,6 +10,20 @@ led2 = LED(20)
 led3 = LED(16)
 led4 = LED(12)
 led5 = LED(1)
+sound = ''
+
+def getFile(number):
+    global sound
+    if number == 1:
+        sound = "Head.wav"
+    elif number == 2:
+        sound = "Top_Right.wav"
+    elif number == 3:
+        sound = "Top_Left.wav"
+    elif number == 4:
+        sound = "Bottom_Right.wav"
+    elif number == 5:
+        sound = "Bottom_Left.wav"
 
 def b1(channel):
     global buttonPressed
@@ -71,21 +86,27 @@ def getRandoms(length):
     return randoms
 
 def signify(theList):
+    global sound
     for x in theList:
         if x == 1:
-            playsound.playsound('/home/pi/git/punching_bag/Head.mp3') #audio replacement here roshan
+            getFile(1)
+            play(sound)
             time.sleep(.5)
         elif x == 2:
-            playsound.playsound('/home/pi/git/punching_bag/Top_Right.mp3') #audio replacement here roshan
+            getFile(2)
+            play(sound)
             time.sleep(.5)
         elif x == 3:
-            playsound.playsound('/home/pi/git/punching_bag/Top_Left.mp3') #audio replacement here roshan
+            getFile(3)
+            play(sound)
             time.sleep(.5)
         elif x == 4:
-            playsound.playsound('/home/pi/git/punching_bag/Bottom_Right.mp3') #audio replacement here roshan
+            getFile(4)
+            play(sound)
             time.sleep(.5)
         elif x == 5:
-            playsound.playsound('/home/pi/git/punching_bag/Bottom_Left.mp3') #audio replacement here roshan
+            getFile(4)
+            play(sound)
             time.sleep(.5)
 
 
