@@ -114,6 +114,7 @@ def signify(theList):
 game = True
 num = 2
 while True:
+    game = True
     while game == True:
         correct = getRandoms(num)
         print(correct)
