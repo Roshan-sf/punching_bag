@@ -113,14 +113,16 @@ def signify(theList):
 
 game = True
 num = 2
-while game == True:
-    correct = getRandoms(num)
-    print(correct)
-    signify(correct)
-    response = getAnswer(num)
-    print(response)
-    if correct != response:
-        game = False
-        print("game over")
-        getFile(6)
-    num += 1
+while True:
+    while game == True:
+        correct = getRandoms(num)
+        print(correct)
+        signify(correct)
+        response = getAnswer(num)
+        print(response)
+        if correct != response:
+            game = False
+            print("game over")
+            getFile(6)
+        num += 1
+    time.sleep(5)
